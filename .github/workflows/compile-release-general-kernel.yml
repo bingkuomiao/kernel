@@ -13,10 +13,11 @@ on:
       kernel_source:
         description: "Select the kernel source"
         required: false
-        default: "unifreq"
+        default: "jinglei-dot"
         type: choice
         options:
           - unifreq
+          - jinglei-dot
       kernel_version:
         description: "Select kernel version"
         required: false
@@ -53,10 +54,11 @@ on:
       kernel_sign:
         description: "Set the kernel custom signature"
         required: false
-        default: "-ophub"
+        default: "-jinglei"
         type: choice
         options:
           - -ophub
+          - -jinglei
           - -yourname
       kernel_config:
         description: "Set the path of kernel .config"
@@ -98,7 +100,7 @@ jobs:
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Compile the kernel [ ${{ inputs.kernel_version }} ]
-        uses: ophub/amlogic-s9xxx-armbian@main
+        uses: jinglei-dot/amlogic-s9xxx-armbian@main
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         with:
           build_target: kernel
