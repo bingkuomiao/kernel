@@ -34,7 +34,7 @@ on:
       kernel_auto:
         description: "Auto use the latest kernel"
         required: false
-        default: true
+        default: false
         type: boolean
       kernel_package:
         description: "Select compile package list"
