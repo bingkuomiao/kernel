@@ -101,7 +101,7 @@ jobs:
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Compile the kernel [ ${{ inputs.kernel_version }} ]
-        uses: jinglei-dot/amlogic-s9xxx-armbian@“6.1.59”
+        uses: jinglei-dot/amlogic-s9xxx-armbian@6.1.59
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         with:
           build_target: kernel
