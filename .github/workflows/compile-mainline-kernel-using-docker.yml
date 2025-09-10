@@ -24,12 +24,16 @@ on:
         default: "6.12.y"
         type: choice
         options:
+          - 5.4.y
           - 5.10.y
           - 5.15.y
           - 6.1.y
           - 6.6.y
           - 6.12.y
-          - 5.10.y_5.15.y
+          - 5.4.y_5.10.y
+          - 5.15.y_6.1.y
+          - 6.6.y_6.12.y
+          - 5.4.y_5.10.y_5.15.y
           - 6.1.y_6.6.y_6.12.y
           - all
       kernel_auto:
@@ -108,7 +112,7 @@ on:
           - false
 
 env:
-  TZ: America/New_York
+  TZ: Etc/UTC
 
 jobs:
   build:
@@ -138,7 +142,9 @@ jobs:
           sudo -E apt-get clean
           sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
           sudo rm -rf ~/{.cargo,.dotnet,.rustup}
-          sudo timedatectl set-timezone "${TZ}"
+          sudo -E timedatectl set-timezone "${TZ}"
+          sudo -E apt-get install -y ntpdate
+          sudo -E ntpdate pool.ntp.org
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Create simulated physical disk
@@ -186,6 +192,8 @@ jobs:
           docker run -d --privileged \
               --name armbian-ophub \
               -v /builder/compile-kernel:/opt/kernel/compile-kernel \
+              -v /etc/localtime:/etc/localtime:ro \
+              -v /etc/timezone:/etc/timezone:ro \
               --restart=always \
               ophub/armbian-${{ inputs.docker_image }}:latest
 
