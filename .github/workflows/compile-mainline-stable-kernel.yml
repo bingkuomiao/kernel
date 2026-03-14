@@ -13,15 +13,16 @@ on:
       kernel_source:
         description: "Select the kernel source"
         required: false
-        default: "unifreq"
+        default: "bingkuomiao"
         type: choice
         options:
           - unifreq
           - ophub
+          - bingkuomiao
       kernel_version:
         description: "Select kernel version"
         required: false
-        default: "6.12.y"
+        default: "6.1.y"
         type: choice
         options:
           - 5.10.y
@@ -43,7 +44,7 @@ on:
       kernel_package:
         description: "Select compile package list"
         required: false
-        default: "all"
+        default: "dtbs"
         type: choice
         options:
           - all
@@ -67,7 +68,7 @@ on:
       docker_image:
         description: "Select Armbian docker image"
         required: false
-        default: "trixie"
+        default: "bookworm"
         type: choice
         options:
           - trixie
@@ -77,7 +78,7 @@ on:
       kernel_sign:
         description: "Set the kernel custom signature"
         required: false
-        default: "-ophub"
+        default: "-bingkuomiao"
         type: choice
         options:
           - -ophub
@@ -90,7 +91,7 @@ on:
           - -summer-growing
           - -autumn-harvesting
           - -winter-storing
-          - -yourname
+          - -bingkuomiao
       kernel_config:
         description: "Set the path of kernel .config"
         required: false
